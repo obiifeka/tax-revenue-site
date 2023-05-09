@@ -1,0 +1,29 @@
+.btn-slide {
+    animation: slide-right-left 1s ease;
+  }
+  
+  @keyframes slide-right-left {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(10px);
+    }
+    50% {
+      transform: translateX(-60px);
+    }
+    75% {
+      transform: translateX(60px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
+  
+  #hero {
+    height: 100vh; /* set height to viewport height */
+    background: url("{{ url_for('static', filename='assetes/download.jpeg') }}") no-repeat center center;
+    background-size: cover;
+  }
+  
+  

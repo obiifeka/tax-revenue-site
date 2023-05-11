@@ -1,20 +1,20 @@
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask
 from flask_cors import CORS
 from flask_wtf.csrf import CSRFProtect
+import secrets
+from flask_sqlalchemy import SQLAlchemy
+from flask_security import SQLAlchemyUserDatastore
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key-here'
+app.config['SECRET_KEY'] = secrets.token_hex(16)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tax.db'
 
-# Enable Cross-Origin Resource Sharing (CORS)
-CORS(app)
-
-# Enable CSRF protection for all routes
+db = SQLAlchemy(app)
 csrf = CSRFProtect(app)
+CORS(app)
+from .models import User, Role
 
-@app.route('/', methods=['GET', 'POST'])
-@csrf.exempt # Disable CSRF protection for this route
-def home():
-    if request.method == 'POST':
-        # Handle POST Request here
-        return render_template('home.html')
-    return render_template('home.html')
+# create the user datastore with SQLAlchemyUserDatastore
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+
+from . import views

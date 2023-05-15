@@ -1,4 +1,82 @@
 {% extends 'base.html' %}
- {% block content %}
 
- {% endblock content %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{{ url_for('static', filename='assetes/signup.png') }}" alt="Picture of a cat" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title mb-4 text-center">Sign Up</h1>
+                        <form method="POST" action="{{ url_for('signup') }}">
+                            {{ form.csrf_token() }} {# add the CSRF token field #}
+                            {{ form.hidden_tag() }}
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.firstname.label(class="form-label") }}
+                                    {{ form.firstname(class="form-control") }}
+                                    {% for error in form.firstname.errors %}
+                                        <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.lastname.label(class="form-label") }}
+                                    {{ form.lastname(class="form-control") }}
+                                    {% for error in form.lastname.errors %}
+                                        <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.email.label(class="form-label") }}
+                                    {{ form.email(class="form-control") }}
+                                    {% for error in form.email.errors %}
+                                        <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.phonenumber.label(class="form-label") }}
+                                    {{ form.phonenumber(class="form-control") }}
+                                    {% for error in form.phonenumber.errors %}
+                                        <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    {{ form.password.label(class="form-label") }}
+                                    {{ form.password(class="form-control") }}
+                                    {% for error in form.password.errors %}
+                                        <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form.confirm.label(class="form-label") }}
+                                    {{ form.confirm(class="form-control") }}
+                                    {% for error in form.confirm.errors %}
+                                        <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="form-check mb-3">
+                                {{ form.accept_tos(class="form-check-input") }}
+                                {{ form.accept_tos.label(class="form-check-label") }}
+                                {% for error in form.accept_tos.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary w-100">{{ form.submit.label }}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <br>
+{% endblock %}

@@ -7,7 +7,7 @@ from . import db, app
 
 class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(255), unique=True)
+    email = db.Column(db.String(255), unique=True)
     description = db.Column(db.String(255))
 
 
@@ -16,7 +16,8 @@ class User(db.Model, UserMixin):
      # Add fs_uniquifier attribute
     fs_uniquifier = db.Column(db.String(64), unique=True, nullable=False, server_default='')
     # Other attributes
-    name = db.Column(db.String(255), nullable=False)
+    firstname = db.Column(db.String(255), nullable=False)
+    lastname = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     phonenumber = db.Column(db.String(20), nullable=False)
     password = db.Column(db.String(255), nullable=False)
@@ -27,7 +28,7 @@ class User(db.Model, UserMixin):
                             backref=db.backref('users', lazy='dynamic'))
 
     def __repr__(self):
-        return f"User('{self.name}')"
+        return f"User('{self.firstname}')"
 
 
 # create the user datastore with SQLAlchemyUserDatastore
